@@ -1,4 +1,6 @@
 # WebGL Webmidi sample
+![demo](https://raw.githubusercontent.com/shikitari/webgl_webmidi_sample/dcf7b3b6137829469812171be2c523ed404d2446/public/readme/demo.gif "demo")
+https://youtu.be/CjMIJv1rQWU
 
 ## Getting Started
 ### Install node.js
