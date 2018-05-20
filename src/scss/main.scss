@@ -1,0 +1,99 @@
+html,body,div,span,iframe,h1,h2,h3,h4,h5,h6,p,pre,　dl,dt,dd,ol,ul,li,table,tbody,tfoot,thead,tr,th,td,a,canvas {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    vertical-align:baseline;
+    background:transparent;
+}
+
+.red {
+    color: red;
+}
+
+canvas{
+    background-color: #000
+}
+
+$primary-color: #333333;
+
+#audio_config {
+    max-width: 720px;
+    box-sizing: border-box;
+    background: #eee;
+    border: 1px solid #333;
+    padding: 20px;
+    .border {
+        border: solid #333 1px;
+        cursor: pointer;
+        background-color: #eee;
+    }
+    button {
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        border-radius: 4px;
+        
+        cursor: pointer;
+    }
+    select {
+        display: inline-block;
+        font-size: 16px;
+        text-align: left;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        padding: 15px 32px;
+        flex: 2;
+        height: 50px;
+    }
+    .flex_container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        vertical-align: middle;
+        max-width: 800px;
+    }
+    .label {
+        text-align: left;
+        width: 80px;
+        padding-left: 10px;
+    }
+    .monitor {
+        text-align: center;
+        width: 100px;
+        padding-left: 2px;
+    }
+}
+
+#controllers {
+    max-width: 720px;
+    box-sizing: border-box;
+    background: #eee;
+    border: 1px solid #222;
+    padding: 20px;
+    .parttype1 {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        vertical-align: middle;
+        max-width:640px;
+        border: 1px solid #ddd;
+    }
+    .label {
+        text-align: right;
+        padding-right:  10px;
+        border-right: 1px solid #ddd;
+        background-color: #ddd;
+        width: 240px;
+    }
+    .range {
+        width: 80px;
+        flex: 1;
+    }
+    .text {
+        width: 40px;
+    }
+}
