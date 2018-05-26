@@ -8,25 +8,8 @@ uniform vec4 tex01st;
 uniform float meowIntensity;
 uniform int drumCount;
 
-uniform ivec2 wave00;
-uniform ivec2 wave01;
-uniform ivec2 wave02;
-uniform ivec2 wave03;
-uniform ivec2 wave04;
-uniform ivec2 wave05;
-uniform ivec2 wave06;
-uniform ivec2 wave07;
-uniform ivec2 wave08;
-
-uniform vec4 wavec00;
-uniform vec4 wavec01;
-uniform vec4 wavec02;
-uniform vec4 wavec03;
-uniform vec4 wavec04;
-uniform vec4 wavec05;
-uniform vec4 wavec06;
-uniform vec4 wavec07;
-uniform vec4 wavec08;
+uniform ivec2 wave[8];
+uniform vec4 wavec[8];
 
 uniform float noize_intensity;
 uniform float wave_speed;//If this value is 1.0 and wave frequency is 440hz, move 2pi in 1sec.
@@ -156,44 +139,11 @@ void main() {
   vec4 color = vec4(0.0, 0.0, 0.0, 1.0);
 
   vec4 c;
-  if (wave00.x >= 0) {
-    c = vec4(wavec00.xyz, 1.0);
-    drawSine(pos, c, color, wave00.y, wavec00.w);
-  }
-
-  if (wave01.x >= 0) {
-    c = vec4(wavec01.xyz, 1.0);
-    drawSine(pos, c, color, wave01.y, wavec01.w);
-  }
-
-  if (wave02.x >= 0) {
-    c = vec4(wavec02.xyz, 1.0);
-    drawSine(pos, c, color, wave02.y, wavec02.w);
-  }
-
-  if (wave03.x >= 0) {
-    c = vec4(wavec03.xyz, 1.0);
-    drawSine(pos, c, color, wave03.y, wavec03.w);
-  }
-
-  if (wave04.x >= 0) {
-    c = vec4(wavec04.xyz, 1.0);
-    drawSine(pos, c, color, wave04.y, wavec04.w);
-  }
-
-  if (wave05.x >= 0) {
-    c = vec4(wavec05.xyz, 1.0);
-    drawSine(pos, c, color, wave05.y, wavec05.w);
-  }
-
-  if (wave06.x >= 0) {
-    c = vec4(wavec06.xyz, 1.0);
-    drawSine(pos, c, color, wave06.y, wavec06.w);
-  }
-
-  if (wave07.x >= 0) {
-    c = vec4(wavec07.xyz, 1.0);
-    drawSine(pos, c, color, wave07.y, wavec07.w);
+  for (int i = 0; i < 8; i++) {
+      if (wave[i].x >= 0) {
+        c = vec4(wavec[i].xyz, 1.0);
+        drawSine(pos, c, color, wave[i].y, wavec[i].w);
+      }
   }
 
   drawNoise(color, pos);
@@ -207,6 +157,7 @@ void main() {
   drawCat(color, coordinate, coordinateByThread, oddThread);
   
   gl_FragColor = color;
+  // gl_FragColor = vec4(float(wave[0]), 0., 0., 1.);
   
   // debug tool
   

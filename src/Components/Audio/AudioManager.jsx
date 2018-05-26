@@ -39,7 +39,7 @@ export default class AudioManager extends Component {
         this.looper();
 
         //for debug
-        this.autoConfigForDebug();
+        // this.autoConfigForDebug();
     }
 
     async looper() {
@@ -208,7 +208,7 @@ export default class AudioManager extends Component {
         // output = this.props.midi_access.outputs.values().next();
         // output = (output)? output.value : null;
         // outputId = output.id;
-        outputId = '82996340';
+        outputId = '0';
         output = this.props.midi_access.outputs.get(outputId);
         if (output) {
             a.push(this.props.dispatch({ type: "SELECT_MIDI_OUTPUT", payload: outputId}));
@@ -219,7 +219,7 @@ export default class AudioManager extends Component {
         // input = this.props.midi_access.inputs.values().next();
         // input = (input)? input.value : null;
         // inputId = input.id;
-        inputId = '1195867051';
+        inputId = '0';
         input = this.props.midi_access.inputs.get(inputId);
 
         if (input) {

@@ -93,10 +93,8 @@ export default class WavePattern extends Component {
         this.uniformTex["tex01"] = gl.getUniformLocation(program, 'tex01');
         this.uniformTex["tex01st"] = gl.getUniformLocation(program, 'tex01st');
 
-		for (let i = 0; i < 8; i++) {
-			this.uniform[i + 10] = gl.getUniformLocation(program, 'wave0' + i);
-			this.uniform[i + 20] = gl.getUniformLocation(program, 'wavec0' + i);
-		}
+		this.uniform[30] = gl.getUniformLocation(program, 'wave');
+		this.uniform[31] = gl.getUniformLocation(program, 'wavec');
 
 
 		let list = [];
@@ -290,22 +288,34 @@ export default class WavePattern extends Component {
 		//  sort by velocity. If It is heavy, should be commentout.
 		notes.sort((a, b) => (b.velocity - a.velocity));
 
-		let n = notes.length;
-		for (let i = 0; i < n; i++){			
-			let info = notes[i].noteInfo();
-			let noteNo = parseInt(notes[i].noteNo);
-			let velocity = parseInt(notes[i].velocity);
+		const wave = new Int32Array(16);
+		const waveColor = new Float32Array(32);
+		for (let i = 0; i < WavePattern.PolyphonyMax; i++){			
+			const indexStride2 = i * 2;
+			const indexStride4 = i * 4;
 
-			// The following error is sometime occurred. I coundn't resolve this problem for now.
-			// GL ERROR :GL_INVALID_OPERATION : glUniform2iv: wrong uniform function for type
-			gl.uniform2iv(this.uniform[i + 10],　new Int32Array([noteNo, velocity]));
-			gl.uniform4fv(this.uniform[i + 20],　[info.rgb[0], info.rgb[1], info.rgb[2], info.freq]);		
+			if (i < notes.length) {
+				const info = notes[i].noteInfo();
+				const noteNo = parseInt(notes[i].noteNo);
+				const velocity = parseInt(notes[i].velocity);
+				wave[indexStride2] = noteNo;
+				wave[indexStride2 + 1] = velocity;
+				waveColor[indexStride4] = info.rgb[0];
+				waveColor[indexStride4 + 1] = info.rgb[1];
+				waveColor[indexStride4 + 2] = info.rgb[2];
+				waveColor[indexStride4 + 3] = info.freq;
+			} else {
+				wave[indexStride2] = -1;
+				wave[indexStride2 + 1] = 0;
+				waveColor[indexStride4] = 0;
+				waveColor[indexStride4 + 1] = 0;
+				waveColor[indexStride4 + 2] = 0;
+				waveColor[indexStride4 + 3] = 0;
+			}
 		}
 		
-		for (let i = n; i < WavePattern.PolyphonyMax; i++) {
-			gl.uniform2iv(this.uniform[i + 10], new Int32Array([-1, 0]));
-			gl.uniform4fv(this.uniform[i + 20],　[0, 0, 0, 0]);
-		}
+		gl.uniform2iv(this.uniform[30],　wave);
+		gl.uniform4fv(this.uniform[31],　waveColor);
 	}
 
 	componentWillUpdate(nextProps, nextState) {
